@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="grid-container">
-        <div class="sidebar">
+        <section class="sidebar">
             <header class="logo">Library</header>
             <div class="library-input">
                 <form>
@@ -46,8 +46,8 @@
                 </form>
             </div>
             <div class="footer">created by mauZzii© 2023</div>
-        </div>
-        <div class="library">
+        </section>
+        <main class="library">
             <div class="library-info">
                 <p>READ:
                     <span class="books-read"></span>
@@ -73,7 +73,23 @@
                 <tbody class="list-body">
                 </tbody>
             </table>
-        </div>
+
+            <!--confirm deletion modal-->
+            <div id="modal" class="close">
+                <div class="modal-card">
+                    <div class="modal-header">
+                        <h2>REMOVE ALL</h2>
+                    </div>
+                    <div class="modal-content">
+                        <p>Do you really want to delete all the books from your library?</p>
+                        <div class="modal-options">
+                            <button type="button" class="cancel-removal close">Cancel</button>
+                            <button type="button" class="confirm-removal">DELETE ALL</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 </body>
 </html>

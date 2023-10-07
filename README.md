@@ -36,5 +36,4 @@ From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node
 
 ### Comments/To Do
 
-* Delete all functionality & alert
 * Add status button on table to change from read to unread

@@ -123,6 +123,19 @@ function validateForm(event) {
       }
 }
 
+function confirmDeleteModal() {
+    const modal = document.querySelector('#modal');
+    modal.style.display = 'block';
+    modal.addEventListener('click', (event) => {
+      const { target } = event;
+      if (target.classList.contains('close')) {
+        modal.style.display = 'none';
+      } else if (target.classList.contains('confirm-removal')) {
+        myLibrary = [];
+        modal.style.display = 'none';
+      }
+    });
+  }
 
 function listenClicks() {
     document.addEventListener('click', (event) => {
@@ -133,6 +146,8 @@ function listenClicks() {
             validateForm(event);
         } else if (target.classList.contains('delete-book')) {
             myLibrary.splice(tr, 1);
+        } else if (target.classList.contains('delete-all')) {
+            confirmDeleteModal();
         };
 
         showBooksInLibrary();
