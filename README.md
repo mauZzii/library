@@ -28,4 +28,11 @@ From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node
 
 ### What Was Learned
 
+* Advanced my knowledge of **Flexbox** and **CSS Grid**
+* Advanced my knowledge of **Absolute and Relative Positioning**
+* Advanced **Styling of Forms**
+
 ### Comments/To Do
+
+* Style library table
+* Create script for library(add books on form submit and delete on delete button click)

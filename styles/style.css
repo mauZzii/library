@@ -1,0 +1,123 @@
+:root {
+    --sidebar-width: 420px;
+    --spacing: 1rem;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.grid-container {
+    display: grid;
+    height: 100vh;
+
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-areas: "sidebar main";
+}
+
+.sidebar {
+    grid-area: sidebar;
+
+    background-color: gray;
+    border: black solid 1px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+
+}
+
+.logo {
+    font-size: 3rem;
+}
+
+.library-input {
+    border: black solid 1px;
+    padding: 1rem;
+}
+
+.input-block {
+    position: relative;
+}
+
+.input-block span.placeholder {
+    position: absolute;
+    margin: 17px 0px;
+    left: 0;
+
+    transition: all 0.3s;
+    transform-origin: 0% 0%;
+    pointer-events: none;
+}
+
+.input-block input:valid + span.placeholder,
+.input-block input:focus + span.placeholder {
+    transform: scale(0.8) translateY(-30px);
+}
+
+.input-block input:focus {
+    border-bottom: white solid 1px !important;
+}
+
+#book-title, #book-author, #book-pages {
+    width: 100%;
+    padding: 15px 0px 5px 0px;
+    background-color: gray;
+    border: none;
+    border-bottom: black solid 1px;
+}
+
+.validation-block {
+    height: 3rem;
+}
+
+select#completed {
+    appearance: none;
+    /* safari */
+    -webkit-appearance: none;
+    /* other styles */
+    width: 50%;
+    font-size: 1.15rem;
+    padding: 0.675em 1em 0.675em;
+    background-color: gray;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    color: #000;
+    cursor: pointer;
+}
+
+button.submit {
+    appearance: none;
+    /* safari */
+    -webkit-appearance: none;
+    /* other styles */
+    width: 100%;
+    font-size: 1.25rem;
+    padding: 1rem .5rem;
+    border: black solid 1px;
+    border-radius: .25rem;
+    margin-top: 2rem;
+    background-color: gray;
+}
+
+.footer {
+    padding-bottom: .5rem;
+}
+
+.library {
+    grid-area: main;
+
+    background-color: goldenrod;
+    border: black solid 1px;
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Library</title>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="sidebar">
+            <header class="logo">Library</header>
+            <div class="library-input">
+                <form action="">
+                    <div class="input-block">
+                        <input type="text" id="book-title" name="book-title" autocomplete="off" required>
+                        <span class="placeholder">What is the title of the book?</span>
+                        <div class="validation-block">
+                            <p class="validation-text title">Please fill out this field.</p>
+                        </div>
+                    </div>
+                    <div class="input-block">
+                        <input type="text" id="book-author" name="book-author" autocomplete="off" required>
+                        <span class="placeholder">Who is the author of the book?</span>
+                        <div class="validation-block">
+                            <p class="validation-text title">Please fill out this field.</p>
+                        </div>
+                    </div>
+                    <div class="input-block">
+                        <input type="text" id="book-pages" name="book-pages" autocomplete="off" required>
+                        <span class="placeholder">How many pages are in the book?</span>
+                        <div class="validation-block">
+                            <p class="validation-text title">Please enter a number greater than zero.</p>
+                        </div>
+                    </div>
+                    <select name="completed" id="completed">
+                        <option value="notRead">Not Read</option>
+                        <option value="read">Read</option>
+                    </select>
+                    <button type="submit" class="submit">Add New Book</button>
+                </form>
+            </div>
+            <div class="footer">created by mauZzii© 2023</div>
+        </div>
+        <div class="library">
+            <div class="library-info">
+                <p>Books Read:
+                    <span class="books-read">0</span>
+                </p>
+                <p>Books Not Read:
+                    <span class="books-unread">0</span>
+                </p>
+                <p>Total Books:
+                    <span class="books-total">0</span>
+                </p>
+                <button class="delete-all">Delete All</button>
+            </div>
+            <table class="book-list">
+                <thead class="requirements">
+                    <tr>
+                        <td>Title</td>
+                        <td>Author</td>
+                        <td>Pages</td>
+                        <td>Status</td>
+                        <td>Remove</td>
+                    </tr>
+                </thead>
+                <tbody class="list-body"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
