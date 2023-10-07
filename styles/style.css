@@ -1,6 +1,12 @@
 :root {
     --sidebar-width: 420px;
     --spacing: 1rem;
+    --dark-grey: #4a4a4a;
+    --light-grey: #cdcdd5;
+    --white: #ffffff;
+    --light-yellow: #f6d59c;
+    --dark-blue-accent:#083962;
+    --cream-accent: #f6d59c;
 }
 
 *,
@@ -14,6 +20,13 @@
 body {
     height: 100%;
     overflow-x: hidden;
+    font-family: 'Kulim Park';
+    background-color: var(--white);
+}
+
+input:focus,
+button:focus {
+  outline: none;
 }
 
 .grid-container {
@@ -27,23 +40,27 @@ body {
 .sidebar {
     grid-area: sidebar;
 
-    background-color: gray;
-    border: black solid 1px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 2rem;
 
+    background-color: var(--dark-grey);
+    color: var(--light-grey);
 }
 
 .logo {
     font-size: 3rem;
+    width: 100%;
+    text-align: center;
+    color:#d5ac4a;
+    border-bottom: var(--light-yellow) solid 2px;
+    padding-bottom: 0.5rem;
 }
 
 .library-input {
-    border: black solid 1px;
+    border: var(--light-yellow) solid 2px;
     padding: 1rem;
 }
 
@@ -67,37 +84,40 @@ body {
 }
 
 .input-block input:focus {
-    border-bottom: white solid 1px !important;
+    border-bottom: var(--white) solid 2px !important;
 }
 
 #book-title, #book-author, #book-pages {
     width: 100%;
     padding: 15px 0px 5px 0px;
-    background-color: gray;
+    background-color: var(--dark-grey);
     border: none;
-    border-bottom: black solid 1px;
+    border-bottom: var(--light-yellow) solid 2px;
 }
 
 .validation-block {
     height: 3rem;
 }
 
-select#completed {
-    appearance: none;
-    /* safari */
-    -webkit-appearance: none;
-    /* other styles */
-    width: 50%;
-    font-size: 1.15rem;
-    padding: 0.675em 1em 0.675em;
-    background-color: gray;
-    border: 1px solid black;
-    border-radius: 0.25rem;
-    color: #000;
-    cursor: pointer;
+.validation-text {
+    display: none;
+    margin: 0;
+    font-size: 0.8rem;
+    color: red;
 }
 
-button.submit {
+.status-checkbox {
+    display: grid;
+    grid-template-columns: min-content auto;
+    gap: .25rem;
+}
+
+#status-check {
+    width: 1rem;
+    height: 1rem;
+}
+
+button#submit-book {
     appearance: none;
     /* safari */
     -webkit-appearance: none;
@@ -105,19 +125,71 @@ button.submit {
     width: 100%;
     font-size: 1.25rem;
     padding: 1rem .5rem;
-    border: black solid 1px;
+    border: var(--light-yellow) solid 2px;
     border-radius: .25rem;
     margin-top: 2rem;
-    background-color: gray;
-}
-
-.footer {
-    padding-bottom: .5rem;
+    background-color: var(--dark-grey);
+    color: var(--light-grey);
+    cursor: pointer;
 }
 
 .library {
     grid-area: main;
 
-    background-color: goldenrod;
-    border: black solid 1px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.library-info {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    margin-bottom: 2rem;
+    padding: 0 1.5rem;
+    font-size: 1.5rem;
+    gap: 3rem;
+}
+
+button.delete-all {
+    border: none;
+    background-color: var(--white);
+    background-image: url(../img/trash.png);
+    background-size: cover;
+    height: 2.5rem;
+    width: 2.5rem;
+    cursor: pointer;
+}
+
+.book-list {
+    width: 70%;
+    border-collapse: collapse;
+}
+
+.book-list td {
+    padding: 25px;
+}
+
+.requirements {
+    background-color: var(--dark-blue-accent);
+    color: var(--cream-accent);
+}
+
+.book-info {
+    border-bottom: 2px solid black;
+}
+
+button.delete-book {
+    border: none;
+    background-color: var(--white);
+    background-image: url(../img/trash.png);
+    background-size: contain;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+}
+
+.footer {
+    padding-bottom: .5rem;
 }

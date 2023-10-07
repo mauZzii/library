@@ -30,9 +30,11 @@ From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node
 
 * Advanced my knowledge of **Flexbox** and **CSS Grid**
 * Advanced my knowledge of **Absolute and Relative Positioning**
-* Advanced **Styling of Forms**
+* Advanced **Styling of Forms and Buttons**
+* Populating table using forms
+* Advanced **Array Manipulation** with **Javascript**
 
 ### Comments/To Do
 
-* Style library table
-* Create script for library(add books on form submit and delete on delete button click)
+* Delete all functionality & alert
+* Add status button on table to change from read to unread

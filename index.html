@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://fonts.googleapis.com/css?family=Kulim Park' rel='stylesheet'>
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/books.js" defer></script>
     <title>Library</title>
 </head>
 <body>
@@ -12,61 +14,64 @@
         <div class="sidebar">
             <header class="logo">Library</header>
             <div class="library-input">
-                <form action="">
+                <form>
                     <div class="input-block">
-                        <input type="text" id="book-title" name="book-title" autocomplete="off" required>
-                        <span class="placeholder">What is the title of the book?</span>
+                        <input type="text" id="book-title" name="title" autocomplete="off" required>
+                        <span class="placeholder">Title of the book</span>
                         <div class="validation-block">
                             <p class="validation-text title">Please fill out this field.</p>
                         </div>
                     </div>
                     <div class="input-block">
-                        <input type="text" id="book-author" name="book-author" autocomplete="off" required>
-                        <span class="placeholder">Who is the author of the book?</span>
+                        <input type="text" id="book-author" name="author" autocomplete="off" required>
+                        <span class="placeholder">Author of the book</span>
                         <div class="validation-block">
-                            <p class="validation-text title">Please fill out this field.</p>
+                            <p class="validation-text author">Please fill out this field.</p>
                         </div>
                     </div>
                     <div class="input-block">
-                        <input type="text" id="book-pages" name="book-pages" autocomplete="off" required>
-                        <span class="placeholder">How many pages are in the book?</span>
+                        <input type="text" id="book-pages" name="pages" autocomplete="off" required>
+                        <span class="placeholder">Pages in the book</span>
                         <div class="validation-block">
-                            <p class="validation-text title">Please enter a number greater than zero.</p>
+                            <p class="validation-text pages">Please enter a number greater than zero.</p>
                         </div>
                     </div>
-                    <select name="completed" id="completed">
-                        <option value="notRead">Not Read</option>
-                        <option value="read">Read</option>
-                    </select>
-                    <button type="submit" class="submit">Add New Book</button>
+                    <label class="status-checkbox">
+                        <span class="checkbox-input">
+                            <input type="checkbox" name="status" id="status-check">
+                        </span>
+                        <span class="checkbox-text">I have read this book already!</span>
+                    </label>
+                    <button type="submit" id="submit-book">Add New Book</button>
                 </form>
             </div>
             <div class="footer">created by mauZzii© 2023</div>
         </div>
         <div class="library">
             <div class="library-info">
-                <p>Books Read:
-                    <span class="books-read">0</span>
+                <p>READ:
+                    <span class="books-read"></span>
                 </p>
-                <p>Books Not Read:
-                    <span class="books-unread">0</span>
+                <p>UNREAD:
+                    <span class="books-unread"></span>
                 </p>
-                <p>Total Books:
-                    <span class="books-total">0</span>
+                <p>TOTAL:
+                    <span class="books-total"></span>
                 </p>
-                <button class="delete-all">Delete All</button>
+                <button class="delete-all"></button>
             </div>
             <table class="book-list">
                 <thead class="requirements">
                     <tr>
-                        <td>Title</td>
-                        <td>Author</td>
-                        <td>Pages</td>
-                        <td>Status</td>
-                        <td>Remove</td>
+                        <td>TITLE</td>
+                        <td>AUTHOR</td>
+                        <td>PAGES</td>
+                        <td>STATUS</td>
+                        <td>REMOVE</td>
                     </tr>
                 </thead>
-                <tbody class="list-body"></tbody>
+                <tbody class="list-body">
+                </tbody>
             </table>
         </div>
     </div>
