@@ -1,10 +1,10 @@
 # Library Project
 
-Project to create an online Library using HTML, CSS and Vanilla JS.
+Project to create an online Library/Bookshelf using HTML, CSS and Vanilla JS.
 
 From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node-path-javascript-library).
 
-🔗 **Live preview:** will be updated on completion
+🔗 **Live preview:** [here](https://mauzzii.github.io/library/)
 
 ## Tech Used 
 
@@ -28,12 +28,13 @@ From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node
 
 ### What Was Learned
 
-* Advanced my knowledge of **Flexbox** and **CSS Grid**
-* Advanced my knowledge of **Absolute and Relative Positioning**
-* Advanced **Styling of Forms and Buttons**
-* Populating table using forms
-* Advanced **Array Manipulation** with **Javascript**
+* **Flexbox** and **CSS Grid**
+* **Absolute and Relative Positioning**
+* **Styling of Forms and Buttons**
+* **Populating Table Using Forms**
+* **Storing to Local Storage**
+* **DOM Manipulation** using **JavaScript**
 
 ### Comments/To Do
 
-* Add status button on table to change from read to unread
+* First iteration is done

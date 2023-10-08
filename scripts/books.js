@@ -85,11 +85,22 @@ function showBooksInLibrary() {
         bookRow.appendChild(bookPages);
         //book status
         const bookStatus = document.createElement('td');
-        bookStatus.textContent = myLibrary[i].status;
+        const statusSymbol = document.createElement('img');
+        if (myLibrary[i].status === false) {
+            statusSymbol.src = '../img/close.png';
+            statusSymbol.alt = 'unread symbol';
+            statusSymbol.classList.add('status-symbol', 'unread');
+        } else {
+            statusSymbol.src = '../img/check.png';
+            statusSymbol.alt = 'read symbol';
+            statusSymbol.classList.add('status-symbol', 'read');
+        }
+        bookStatus.appendChild(statusSymbol);
         bookRow.appendChild(bookStatus);
         //single book delete button
         const bookDelete = document.createElement('td');
-        const deleteButton = document.createElement('button');
+        const deleteButton = document.createElement('img');
+        deleteButton.src = '../img/trash.png';
         deleteButton.classList.add('delete-book');
         bookDelete.appendChild(deleteButton);
         bookRow.appendChild(bookDelete);
@@ -148,8 +159,15 @@ function listenClicks() {
             myLibrary.splice(tr, 1);
         } else if (target.classList.contains('delete-all')) {
             confirmDeleteModal();
+        } else if (target.classList.contains('unread')) {
+            target.classList.remove('unread');
+            target.classList.add('read');
+            myLibrary[tr].status = true;
+        } else if (target.classList.contains('read')) {
+            target.classList.remove('read');
+            target.classList.add('unread');
+            myLibrary[tr].status = false;
         };
-
         showBooksInLibrary();
     });
 }

@@ -153,11 +153,7 @@ button#submit-book {
     gap: 3rem;
 }
 
-button.delete-all {
-    border: none;
-    background-color: var(--white);
-    background-image: url(../img/trash.png);
-    background-size: cover;
+.delete-all {
     height: 2.5rem;
     width: 2.5rem;
     cursor: pointer;
@@ -170,6 +166,7 @@ button.delete-all {
 
 .book-list td {
     padding: 25px;
+    text-align: center;
 }
 
 .requirements {
@@ -181,13 +178,15 @@ button.delete-all {
     border-bottom: 2px solid black;
 }
 
-button.delete-book {
-    border: none;
-    background-color: var(--white);
-    background-image: url(../img/trash.png);
-    background-size: contain;
+.status-symbol {
+    height: 1rem;
+    width: auto;
+    cursor: pointer;
+}
+
+.delete-book {
     height: 1.5rem;
-    width: 1.5rem;
+    width: auto;
     cursor: pointer;
 }
 
