@@ -26,6 +26,7 @@ function Book(title, author, pages, status) {
     this.status = status;
 };
 
+//gets books from local storage if any
 if (localStorage.getItem('books') === null) {
     myLibrary = [];
   } else {
@@ -54,18 +55,19 @@ function showLibraryInfo() {
 }
 
 function addBookToLibrary(title, author, pages, status) {
-    //add a book to library array
+    //adds a book to library array
     const book = new Book(title, author, pages, status);
     myLibrary.push(book);
     showBooksInLibrary();
 }
 
 function showBooksInLibrary() {
-    //save to localstorage
+    //saves to localstorage
     localStorage.setItem('books', JSON.stringify(myLibrary));
     showLibraryInfo();
     tableBody.textContent = '';
 
+    //populating row for book
     for (let i = 0; i < myLibrary.length; i += 1) {
         //create new row
         const bookRow = document.createElement('tr');
@@ -86,6 +88,7 @@ function showBooksInLibrary() {
         //book status
         const bookStatus = document.createElement('td');
         const statusSymbol = document.createElement('img');
+        //checks if read or unread
         if (myLibrary[i].status === false) {
             statusSymbol.src = '../img/close.png';
             statusSymbol.alt = 'unread symbol';
@@ -119,11 +122,13 @@ function validateForm(event) {
     } else {
         authorErr.style.display = 'none';
     };
+    //checks if pagesInput value is equal to only digits greater than zero
     if (pagesInput.value === '' || pagesInput.value.match(/[^1-9]/) || pagesInput.value <= 0) {
         pagesErr.style.display = 'block';
     } else {
         pagesErr.style.display = 'none'
     };
+    //last check before adding book to library
     if (titleInput.value !== '' && authorInput.value !== '' && pagesInput.value !== '' && pagesInput.value > 0) {
         if (statusCheckbox.checked) {
           addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, true);
@@ -134,20 +139,22 @@ function validateForm(event) {
       }
 }
 
+//confirm delete all modal
 function confirmDeleteModal() {
     const modal = document.querySelector('#modal');
     modal.style.display = 'block';
     modal.addEventListener('click', (event) => {
-      const { target } = event;
-      if (target.classList.contains('close')) {
-        modal.style.display = 'none';
-      } else if (target.classList.contains('confirm-removal')) {
-        myLibrary = [];
-        modal.style.display = 'none';
-      }
+        const { target } = event;
+        if (target.classList.contains('close')) {
+            modal.style.display = 'none';
+        } else if (target.classList.contains('confirm-removal')) {
+            myLibrary = [];
+            modal.style.display = 'none';
+        }
     });
-  }
+}
 
+//set up click listener
 function listenClicks() {
     document.addEventListener('click', (event) => {
         const { target } = event;
