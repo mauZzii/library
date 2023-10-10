@@ -17,21 +17,22 @@
                 <form>
                     <div class="input-block">
                         <input type="text" id="book-title" name="title" autocomplete="off" required>
-                        <span class="placeholder">Title of the book</span>
+                        <label for="title" class="placeholder">Title of the book</label>
+                        <!-- <span class="placeholder">Title of the book</span> -->
                         <div class="validation-block">
                             <p class="validation-text title">Please fill out this field.</p>
                         </div>
                     </div>
                     <div class="input-block">
                         <input type="text" id="book-author" name="author" autocomplete="off" required>
-                        <span class="placeholder">Author of the book</span>
+                        <label for="author" class="placeholder">Author of the book</label>
                         <div class="validation-block">
                             <p class="validation-text author">Please fill out this field.</p>
                         </div>
                     </div>
                     <div class="input-block">
                         <input type="text" id="book-pages" name="pages" autocomplete="off" required>
-                        <span class="placeholder">Pages in the book</span>
+                        <label for="pages" class="placeholder">Pages in the book</label>
                         <div class="validation-block">
                             <p class="validation-text pages">Please enter a number greater than zero.</p>
                         </div>
@@ -58,7 +59,7 @@
                 <p>TOTAL:
                     <span class="books-total"></span>
                 </p>
-                <img src="img/trash.png" class="delete-all"></img>
+                <img src="img/trash.png" class="delete-all" alt="trashcan delete button"></img>
             </div>
             <table class="book-list">
                 <thead class="requirements">

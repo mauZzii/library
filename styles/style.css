@@ -71,7 +71,7 @@ button:focus {
     position: relative;
 }
 
-.input-block span.placeholder {
+.placeholder {
     position: absolute;
     margin: 17px 0px;
     left: 0;
@@ -81,8 +81,8 @@ button:focus {
     pointer-events: none;
 }
 
-.input-block input:valid + span.placeholder,
-.input-block input:focus + span.placeholder {
+input:valid + .placeholder,
+input:focus + .placeholder {
     transform: scale(0.8) translateY(-30px);
 }
 
