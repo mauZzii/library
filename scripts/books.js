@@ -1,183 +1,178 @@
-//library info
-const booksRead = document.querySelector('.books-read');
-const booksUnread = document.querySelector('.books-unread');
-const totalBooks = document.querySelector('.books-total')
+class Book {
+    constructor(title, author, pages, status) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+    }
+}
 
-//library table
-const tableBody = document.querySelector('.list-body');
-
-//add new book form
-const bookForm = document.querySelector('form');
-const titleInput = document.querySelector('#book-title');
-const titleErr = document.querySelector('.title');
-const authorInput = document.querySelector('#book-author');
-const authorErr = document.querySelector('.author');
-const pagesInput = document.querySelector('#book-pages');
-const pagesErr = document.querySelector('.pages');
-const statusCheckbox = document.querySelector('input[name="status"]');
-
-let myLibrary = [];
-
-function Book(title, author, pages, status) {
-    //populate book info from array
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
-};
-
-//gets books from local storage if any
-if (localStorage.getItem('books') === null) {
-    myLibrary = [];
-  } else {
-    const booksFromStorage = JSON.parse(localStorage.getItem('books'));
-    myLibrary = booksFromStorage;
-};
-
-function showLibraryInfo() {
-    let readCounter = 0;
-    let unreadCounter = 0;
-
-    booksRead.textContent = 0;
-    booksUnread.textContent = 0;
-
-    for (let i = 0; i < myLibrary.length; i += 1) {
-        if (myLibrary[i].status === true) {
-            readCounter += 1;
-            booksRead.textContent = readCounter;
-        } else if (myLibrary[i].status === false) {
-            unreadCounter += 1;
-            booksUnread.textContent = unreadCounter;
+class Library {
+    constructor() {
+        this.books = [];
+    }
+    addBook(title, author, pages, status) {
+        const book = new Book(title, author, pages, status);
+        this.books.push(book);
+    }
+    removeBook(index) {
+        if (index >= 0 && index < this.books.length) {
+            this.books.splice(index, 1);
+        }
+    }
+    toggleStatus(index) {
+        if (index >= 0 && index < this.books.length) {
+            this.books[index].status = !this.books[index].status;
         }
     }
 
-    totalBooks.textContent = myLibrary.length;
 }
 
-function addBookToLibrary(title, author, pages, status) {
-    //adds a book to library array
-    const book = new Book(title, author, pages, status);
-    myLibrary.push(book);
-    showBooksInLibrary();
-}
+class LibraryManager {
+    constructor() {
+        this.library = new Library();
+        this.elements = {
+            booksRead: document.querySelector('.books-read'),
+            booksUnread: document.querySelector('.books-unread'),
+            totalBooks: document.querySelector('.books-total'),
+            tableBody: document.querySelector('.list-body'),
+            bookForm: document.querySelector('form'),
+            titleInput: document.querySelector('#book-title'),
+            titleErr: document.querySelector('.title'),
+            authorInput: document.querySelector('#book-author'),
+            authorErr: document.querySelector('.author'),
+            pagesInput: document.querySelector('#book-pages'),
+            pagesErr: document.querySelector('.pages'),
+            statusCheckbox: document.querySelector('input[name="status"]'),
+            deleteAllButton: document.querySelector('.delete-all'),
+            modal: document.querySelector('#modal'),
+        };
+        //bind events
+        this.elements.bookForm.addEventListener('submit', this.validateForm.bind(this));
+        document.addEventListener('click', this.handleTableClick.bind(this));
+        this.elements.deleteAllButton.addEventListener('click', this.confirmDeleteModal.bind(this));
 
-function showBooksInLibrary() {
-    //saves to localstorage
-    localStorage.setItem('books', JSON.stringify(myLibrary));
-    showLibraryInfo();
-    tableBody.textContent = '';
+        this.loadBooksFromStorage();
+        this.updateLibraryInfo();
+        this.showBooksInLibrary();
+    }
+    loadBooksFromStorage() {
+        const storedBooks = JSON.parse(localStorage.getItem('books')) || [];
+        this.library.books = storedBooks;
+    }
+    saveBooksToStorage() {
+        localStorage.setItem('books', JSON.stringify(this.library.books));
+    }
+    updateLibraryInfo() {
+        const readCounter = this.library.books.filter(book => book.status).length;
+        const unreadCounter = this.library.books.filter(book => !book.status).length;
 
-    //populating row for book
-    for (let i = 0; i < myLibrary.length; i += 1) {
-        //create new row
-        const bookRow = document.createElement('tr');
-        bookRow.classList.add('book-info')
-        tableBody.appendChild(bookRow);
-        //book title
-        const bookTitle = document.createElement('td');
-        bookTitle.textContent = myLibrary[i].title;
-        bookRow.appendChild(bookTitle);
-        //book author
-        const bookAuthor = document.createElement('td');
-        bookAuthor.textContent = myLibrary[i].author;
-        bookRow.appendChild(bookAuthor);
-        //book pages
-        const bookPages = document.createElement('td');
-        bookPages.textContent = myLibrary[i].pages;
-        bookRow.appendChild(bookPages);
-        //book status
-        const bookStatus = document.createElement('td');
+        this.elements.booksRead.textContent = readCounter;
+        this.elements.booksUnread.textContent = unreadCounter;
+        this.elements.totalBooks.textContent = this.library.books.length;
+    }
+    createTableCell(textContent) {
+        const cell = document.createElement('td');
+        cell.textContent = textContent;
+        return cell;
+    }
+    createStatusSymbol(status) {
         const statusSymbol = document.createElement('img');
-        //checks if read or unread
-        if (myLibrary[i].status === false) {
-            statusSymbol.src = '../img/close.png';
-            statusSymbol.alt = 'unread symbol';
-            statusSymbol.classList.add('status-symbol', 'unread');
-        } else {
-            statusSymbol.src = '../img/check.png';
-            statusSymbol.alt = 'read symbol';
-            statusSymbol.classList.add('status-symbol', 'read');
-        }
-        bookStatus.appendChild(statusSymbol);
-        bookRow.appendChild(bookStatus);
-        //single book delete button
-        const bookDelete = document.createElement('td');
+        //set status symbol based off true or false
+        statusSymbol.src = status ? '../img/check.png' : '../img/close.png';
+        statusSymbol.alt = status ? 'read symbol' : 'unread symbol';
+        statusSymbol.classList.add('status-symbol', status ? 'read' : 'unread');
+        return statusSymbol;
+    }
+    createDeleteButton() {
         const deleteButton = document.createElement('img');
         deleteButton.src = '../img/trash.png';
         deleteButton.classList.add('delete-book');
-        bookDelete.appendChild(deleteButton);
-        bookRow.appendChild(bookDelete);
-    };
-}
+        return deleteButton;
+    }
+    addBookToLibrary(title, author, pages, status) {
+        this.library.addBook(title, author, pages, status);
+        this.saveBooksToStorage();
+        this.updateLibraryInfo();
+        this.showBooksInLibrary();
+    }
+    confirmDeleteModal() {
+        const modal = document.querySelector('#modal');
+        modal.style.display = 'block';
+        modal.addEventListener('click', (event) => {
+            const { target } = event;
+            if (target.classList.contains('close')) {
+                modal.style.display = 'none';
+            } else if (target.classList.contains('confirm-removal')) {
+                this.library.books = []; //clear the library
+                this.saveBooksToStorage(); //save the changes to local storage
+                modal.style.display = 'none';
+                this.updateLibraryInfo();
+                this.showBooksInLibrary();
+            }
+        });
+    }
+    validateForm(event) {
+        event.preventDefault();
 
-function validateForm(event) {
-    event.preventDefault();
-    if (titleInput.value === '') {
-        titleErr.style.display = 'block';
-    } else {
-        titleErr.style.display = 'none';
-    };
-    if (authorInput.value === '') {
-        authorErr.style.display = 'block';
-    } else {
-        authorErr.style.display = 'none';
-    };
-    //checks if pagesInput value is equal to only digits greater than zero
-    if (pagesInput.value === '' || pagesInput.value.match(/[^1-9]/) || pagesInput.value <= 0) {
-        pagesErr.style.display = 'block';
-    } else {
-        pagesErr.style.display = 'none'
-    };
-    //last check before adding book to library
-    if (titleInput.value !== '' && authorInput.value !== '' && pagesInput.value !== '' && pagesInput.value > 0) {
-        if (statusCheckbox.checked) {
-          addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, true);
-        } else {
-          addBookToLibrary(titleInput.value, authorInput.value, pagesInput.value, false);
+        //set title and author error to display if values are empty
+        this.elements.titleErr.style.display = this.elements.titleInput.value === '' ? 'block' : 'none';
+        this.elements.authorErr.style.display = this.elements.authorInput.value === '' ? 'block' : 'none';
+        //set pages error to display if value is NaN or <=0
+        const pagesInputValue = parseInt(this.elements.pagesInput.value);
+        this.elements.pagesErr.style.display =
+        isNaN(pagesInputValue) || pagesInputValue <= 0 ? 'block' : 'none';
+
+        //validation check of all input fields
+        if (this.elements.titleInput.value !== '' && this.elements.authorInput.value !== '' && !isNaN(pagesInputValue) && pagesInputValue > 0) {
+                this.addBookToLibrary(
+                    this.elements.titleInput.value,
+                    this.elements.authorInput.value,
+                    pagesInputValue,
+                    this.elements.statusCheckbox.checked
+                );
+            this.elements.bookForm.reset();
         }
-        bookForm.reset();
-      }
-}
-
-//confirm delete all modal
-function confirmDeleteModal() {
-    const modal = document.querySelector('#modal');
-    modal.style.display = 'block';
-    modal.addEventListener('click', (event) => {
+    }
+    handleTableClick(event) {
         const { target } = event;
-        if (target.classList.contains('close')) {
-            modal.style.display = 'none';
-        } else if (target.classList.contains('confirm-removal')) {
-            myLibrary = [];
-            modal.style.display = 'none';
+        //delete single book
+        if (target.classList.contains('delete-book')) {
+            const rowIndex = target.parentNode.parentNode.rowIndex - 1;
+            this.library.removeBook(rowIndex);
+        } 
+        //changes status icon
+        else if (target.classList.contains('read') || target.classList.contains('unread')) {
+            const rowIndex = target.parentNode.parentNode.rowIndex - 1;
+            this.library.toggleStatus(rowIndex);
         }
-    });
-}
-
-//set up click listener
-function listenClicks() {
-    document.addEventListener('click', (event) => {
-        const { target } = event;
-        const tr = target.parentNode.parentNode.rowIndex - 1;
+        this.saveBooksToStorage();
+        this.updateLibraryInfo();
+        this.showBooksInLibrary();
+    }
+    showBooksInLibrary() {
+        this.elements.tableBody.textContent = '';
+    
+        this.library.books.forEach((book) => {
+            const bookRow = document.createElement('tr');
+            bookRow.classList.add('book-info');
+            this.elements.tableBody.appendChild(bookRow);
         
-        if (target.id === 'submit-book') {
-            validateForm(event);
-        } else if (target.classList.contains('delete-book')) {
-            myLibrary.splice(tr, 1);
-        } else if (target.classList.contains('delete-all')) {
-            confirmDeleteModal();
-        } else if (target.classList.contains('unread')) {
-            target.classList.remove('unread');
-            target.classList.add('read');
-            myLibrary[tr].status = true;
-        } else if (target.classList.contains('read')) {
-            target.classList.remove('read');
-            target.classList.add('unread');
-            myLibrary[tr].status = false;
-        };
-        showBooksInLibrary();
-    });
+            bookRow.appendChild(this.createTableCell(book.title));
+            bookRow.appendChild(this.createTableCell(book.author));
+            bookRow.appendChild(this.createTableCell(book.pages));
+            
+            //create status cell
+            const statusCell = document.createElement('td');
+            statusCell.appendChild(this.createStatusSymbol(book.status));
+            bookRow.appendChild(statusCell);
+
+            //create delete cell
+            const deleteCell = document.createElement('td');
+            deleteCell.appendChild(this.createDeleteButton());
+            bookRow.appendChild(deleteCell);
+        });
+    }
 }
 
-showBooksInLibrary();
-listenClicks();
+const libraryManager = new LibraryManager();

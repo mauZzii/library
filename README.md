@@ -28,13 +28,9 @@ From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/node
 
 ### What Was Learned
 
-* **Flexbox** and **CSS Grid**
-* **Absolute and Relative Positioning**
-* **Styling of Forms and Buttons**
-* **Populating Table Using Forms**
-* **Storing to Local Storage**
-* **DOM Manipulation** using **JavaScript**
+* **Advanced HTML/CSS:** Flexbox/CSS Grid, Absolute/Relative Positioning, Hidden Confirmation Modals, Form Styling
+* **Javascript:** Refactoring and debugging, OOP with classes and modular patterns, factory functions, overall clean code
 
 ### Comments/To Do
 
-* First iteration is done
+* Second iteration done; refactored JS into clean code with classes
